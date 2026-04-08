@@ -5,7 +5,7 @@ import type { User } from '@catalog/types'
 
 export const appRouter = router({
   userList: protectedProcedure.query(async ({ ctx }) => {
-    console.log(ctx)
+    console.log({ context: ctx })
     const users: User[] = [
       { id: '1', name: 'user1' },
       { id: '2', name: 'user2' },
