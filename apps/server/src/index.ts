@@ -1,15 +1,14 @@
 import cors from 'cors'
-import { createHTTPServer } from "@trpc/server/adapters/standalone"
-import 'dotenv/config'
+import { createHTTPServer } from '@trpc/server/adapters/standalone'
 
-import { appRouter } from "./appRouter";
-export type {AppRouter} from './appRouter'
-import { createContext } from './context';
+import { appRouter } from './appRouter'
+export type { AppRouter } from './appRouter'
+import { createContext } from './context'
 
 const server = createHTTPServer({
   middleware: cors(),
   router: appRouter,
-  createContext
+  createContext,
 })
 
 server.listen(3001)

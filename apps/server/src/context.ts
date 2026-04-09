@@ -1,6 +1,6 @@
-import type { CreateHTTPContextOptions } from '@trpc/server/adapters/standalone'
-import { verifyToken } from '@clerk/backend'
 import 'dotenv/config'
+import { verifyToken } from '@clerk/backend'
+import type { CreateHTTPContextOptions } from '@trpc/server/adapters/standalone'
 
 const CLERK_SECRET_KEY = process.env.CLERK_SECRET_KEY
 

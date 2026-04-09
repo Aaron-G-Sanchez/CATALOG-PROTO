@@ -1,20 +1,19 @@
 {
   "name": "trpc-proto",
   "module": "index.ts",
-  "private": true,
-   "workspaces": [
-    "apps/*",
-    "packages/*"
-  ],
   "devDependencies": {
-    "@types/bun": "latest",
-    "@types/node": "^25.5.2"
+    "@types/bun": "latest"
   },
   "peerDependencies": {
     "typescript": "^5 || ^6"
   },
+  "private": true,
   "scripts": {
     "dev:server": "bun run --watch apps/server/src/index.ts",
     "dev:frontend": "bun run --cwd apps/frontend dev"
-  }
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ]
 }
