@@ -1,9 +1,10 @@
 import { useMemo } from 'react'
 import { useAuth } from '@clerk/clerk-react'
 import { Navigate, Outlet } from 'react-router'
-
-import { createClient } from '../util/trpc'
+import { QueryClientProvider } from '@tanstack/react-query'
 import type { TRPCClient } from '@trpc/client'
+
+import { queryClient, createClient } from '../util/trpc'
 import type { AppRouter } from 'server'
 
 export type TRPCContext = { client: TRPCClient<AppRouter> }
@@ -16,5 +17,9 @@ export const ProtectedRoute = () => {
   if (!isLoaded) return 'Loading...'
   if (!isSignedIn) return <Navigate to="/" replace />
 
-  return <Outlet context={{ client: trpcClient } satisfies TRPCContext} />
+  return (
+    <QueryClientProvider client={queryClient}>
+      <Outlet context={{ client: trpcClient } satisfies TRPCContext} />
+    </QueryClientProvider>
+  )
 }

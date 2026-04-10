@@ -1,25 +1,31 @@
 import { useOutletContext } from 'react-router'
 import type { TRPCContext } from '../components/ProtectedRoute'
+import { useQuery } from '@tanstack/react-query'
 
 export const Feed = () => {
   const { client } = useOutletContext<TRPCContext>()
 
+  const { refetch } = useQuery({
+    queryKey: ['users'],
+    queryFn: () => client.userList.query(),
+    enabled: false,
+  })
+
+  const userById = useQuery({
+    queryKey: ['userById', 1234],
+    queryFn: () => client.userById.query({ id: 1234 }),
+    enabled: false,
+  })
+
   const getUser = async () => {
-    const userList = await client.userList.query()
-    console.log(userList)
+    const { data } = await refetch()
+
+    console.log(data)
   }
 
   const getUserById = async () => {
-    const user = await client.userById.query({ id: 1234 })
+    const user = await userById.refetch()
     console.log(user)
-  }
-
-  const createUser = async () => {
-    const newUser = await client.userCreate.mutate({
-      user: { user_id: 4321, name: 'Chravis' },
-    })
-
-    console.log(newUser)
   }
 
   return (
@@ -27,7 +33,6 @@ export const Feed = () => {
       <h1>FEED</h1>
       <button onClick={getUser}>Call</button>
       <button onClick={getUserById}>Get User by ID</button>
-      <button onClick={createUser}>Create User</button>
     </>
   )
 }
