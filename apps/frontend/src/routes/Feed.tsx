@@ -12,8 +12,8 @@ export const Feed = () => {
   })
 
   const userById = useQuery({
-    queryKey: ['userById', 1234],
-    queryFn: () => client.userById.query({ id: 1234 }),
+    queryKey: ['userById', 5555],
+    queryFn: () => client.userById.query({ id: 5555 }),
     enabled: false,
   })
 
@@ -25,7 +25,7 @@ export const Feed = () => {
 
   const getUserById = async () => {
     const user = await userById.refetch()
-    console.log(user)
+    console.log(user.data)
   }
 
   return (
